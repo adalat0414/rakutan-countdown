@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Countdown Timer</title>
+    <style>
+        .countdown {
+            background-color: #ffcc00;
+            color: #333;
+            padding: 10px;
+            text-align: center;
+            font-size: 24px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="countdown">
+        セール終了まで: <span id="time"></span>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            function countdownTimer() {
+                const endTime = new Date("2024-06-11T01:59:00").getTime();
+                const timer = setInterval(() => {
+                    const now = new Date().getTime();
+                    const distance = endTime - now;
+
+                    if (distance < 0) {
+                        clearInterval(timer);
+                        document.getElementById("time").innerHTML = "セール終了";
+                        return;
+                    }
+
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    document.getElementById("time").innerHTML = `${days}日 ${hours}時間 ${minutes}分 ${seconds}秒`;
+                }, 1000);
+            }
+
+            countdownTimer();
+        });
+    </script>
+</body>
+</html>
